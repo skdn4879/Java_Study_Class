@@ -41,4 +41,48 @@ public class StudentServiceForExam {
 		
 		return students;	//학생 배열 반환
 	}
+	
+	//findStudent
+	//검색하고 싶은 학생의 번호를 입력받아서, 같은 번호의 학생을 찾아서 그 학생 한명을 리턴, 없으면 null을 리턴
+	public StudentForExam findStudent(StudentForExam[] students) {
+		Scanner sc = new Scanner(System.in);
+		int count = students.length;
+		
+		System.out.println("총 학생 수 : " + count);
+		
+		for(int i = 0; i < count; i++) {
+			
+			System.out.print(students[i].number + "." + students[i].name + "\t");
+			
+			if(i % 5 == 0 && i != 0) {
+				System.out.println();
+			}
+		}	//콘솔 가독성을 위해 어떤 학생들이 있는지를 출력
+		
+		System.out.println();
+		System.out.print("검색할 학생 번호 입력 : ");
+		int num = sc.nextInt();					//학생 번호 입력
+		
+		StudentForExam student = null;
+		
+		for(int i = 0; i < count; i++) {
+			
+			if(students[i].number == num) {		//입력된 학생 번호와 같은 학번의 학생 객체가 있으면
+				student = students[i];			//전달할 학생 객체의 주소값을 받음
+				break;
+			}
+			
+		}
+		
+		/*for(StudentForExam studentFor : students) {
+			if(studentFor.number == num) {
+				student = studentFor;
+				break;
+			}
+		}*/	//위의 for문과 같은 역할(향상된 for문)
+		
+		return student;
+		
+	}
+	
 }

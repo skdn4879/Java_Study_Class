@@ -35,8 +35,12 @@ public class StudentController {
 	
 	public void start(Student[] students) {
 		
+		/*students를 받으면 private students해놓고 여기서 set(this.students)를 하면 굳이 다른 메소드에 매개변수로 안줘도 되지않을까?
+		 * 어차피 이 클래스 내부의 메소드는 이 안에서 호출되니까 students와 count를 멤버변수로 해놓고 매개변수없이 this. 으로 호출?*/
+		
 		boolean isContinue = true;
 		int count = students.length;
+		boolean isStudentsRegisted = false;
 		
 		while(isContinue) {
 			System.out.print("1.학생 정보 조회, 2.학생 정보 검색, 3.학생 정보 삭제, 4.학생 정보 추가, 5.프로그램 종료 : ");
@@ -44,20 +48,21 @@ public class StudentController {
 			
 			if(select == 1) {
 				showAllStudents(students, count);
-			} else if(select == 2) {
+				isStudentsRegisted = true;
+			} else if(select == 2 && isStudentsRegisted) {
 				showStudent(students, count);
-			} else if(select == 3) {
+			} else if(select == 3 && isStudentsRegisted) {
 				StudentContainer stcon = deleteStudent(students, count);
 				students = stcon.getCopyStudents();
 				count = stcon.getCount();
-			} else if(select == 4) {
+			} else if(select == 4 && isStudentsRegisted) {
 				StudentContainer stcon = addStudent(students, count);
 				students = stcon.getCopyStudents();
 				count = stcon.getCount();
 			} else if(select == 5) {
 				isContinue = !isContinue;
 			} else {
-				System.out.println("잘못된 입력");
+				System.out.println("잘못된 입력이거나 학생 정보를 입력하지 않았습니다.");
 			}
 		}
 		
@@ -81,6 +86,9 @@ public class StudentController {
 		
 		for(int i = 0; i < count; i++) {
 			System.out.print(students[i].getNumber() + "." + students[i].getName() + "\t");
+			if(i % 5 == 0 && i != 0) {
+				System.out.println();
+			}
 		}
 		
 		System.out.println();
@@ -91,12 +99,12 @@ public class StudentController {
 		for(int i = 0; i < count; i++) {
 			if(students[i].getNumber() == num) {
 				isExist = !isExist;
-				System.out.println("==========================================================");
-				System.out.println("\t이름\t번호\t국어점수\t영어점수\t수학점수\t총점\t평균");
-				System.out.println("\t" + students[i].getName() + "\t" + students[i].getNumber() + "\t" +
-				students[i].getLangScore() + "\t" + students[i].getEngScore() + "\t" + students[i].getMathScore() + 
-				"\t" + students[i].getTotalScore() + "\t" + students[i].getAverScore());
-				System.out.println("==========================================================");
+				System.out.println("====================================================================================================================");
+				System.out.println("\t이름\t\t번호\t\t국어점수\t\t영어점수\t\t수학점수\t\t총점\t\t평균");
+				System.out.println("\t" + students[i].getName() + "\t\t" + students[i].getNumber() + "\t\t" +
+				students[i].getLangScore() + "\t\t" + students[i].getEngScore() + "\t\t" + students[i].getMathScore() + 
+				"\t\t" + students[i].getTotalScore() + "\t\t" + students[i].getAverScore());
+				System.out.println("====================================================================================================================");
 				break;
 			}
 		}
@@ -111,6 +119,9 @@ public class StudentController {
 		
 		for(int i = 0; i < count; i++) {
 			System.out.print(students[i].getNumber() + "." + students[i].getName() + "\t");
+			if(i % 5 == 0 && i != 0) {
+				System.out.println();
+			}
 		}
 		
 		System.out.println();

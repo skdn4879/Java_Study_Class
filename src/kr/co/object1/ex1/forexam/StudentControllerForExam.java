@@ -3,6 +3,7 @@ package kr.co.object1.ex1.forexam;
 import java.util.Scanner;
 
 public class StudentControllerForExam {
+	
 	public void start() {
 		
 		Scanner sc = new Scanner(System.in);
@@ -10,6 +11,8 @@ public class StudentControllerForExam {
 		StudentForExam[] students = new StudentForExam[0];	//빈 학생 배열 선언
 		int count = 0;	//학생 배열 길이 선언
 		boolean isStudentsRegisted = false;	// 맨 처음 학생 정보 입력을 하지 않은 상태에서 다른 번호를 누를 경우를 방지하기 위한 변수
+		StudentServiceForExam service = new StudentServiceForExam();	//서비스 객체 생성
+		StudentViewForExam view = new StudentViewForExam();	//뷰 객체 생성
 		
 		while(isContinue) {
 			
@@ -20,17 +23,31 @@ public class StudentControllerForExam {
 			
 			if(select == 1) {
 				
-				StudentServiceForExam service = new StudentServiceForExam();	//서비스 객체 생성
 				students = service.makeStudents();	//서비스 객체의 메소드를 통해 학생 정보들을 입력후 주소값 배열 반환받음
 				count = students.length;	//학생 배열 길이 계산 후 변수에 할당(굳이 없어도 될듯한데 혹시 모르니까)
 				isStudentsRegisted = true;	//학생 정보들이 입력되었다고 설정
 				
 			} else if(select == 2 && isStudentsRegisted) {
 				
-				StudentViewForExam view = new StudentViewForExam();	//뷰 객체 생성
-				view.viewAll(students);	// 학생 정보들 주소값 배열을 매개변수로 받아 모든 학생 정보를 출력
+				//view.viewAll(students);	// 학생 정보들 주소값 배열을 매개변수로 받아 모든 학생 정보를 출력
+				view.view(students);
 				
 			} else if(select == 3 && isStudentsRegisted) {
+				
+				StudentForExam studentForView = service.findStudent(students);	//서비스 객체의 메소드를 호출하여 특정 학생 정보의 주소값을 반환받음
+				
+				if(studentForView != null) {		//입력한 번호의 학생이 존재하면
+					
+					//view.viewOne(studentForView);	//해당 학생 정보 출력
+					view.view(studentForView);
+					
+				} else {
+					
+					//System.out.println("없는 학생입니다.");
+					//view.viewMessage("없는 학생입니다.");
+					view.view("없는 학생입니다.");
+					
+				}
 				
 			} else if(select == 4 && isStudentsRegisted) {
 				
