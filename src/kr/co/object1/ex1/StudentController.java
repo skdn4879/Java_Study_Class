@@ -39,7 +39,7 @@ public class StudentController {
 		int count = students.length;
 		
 		while(isContinue) {
-			System.out.print("1. 학생 정보 조회, 2.학생 정보 검색, 3.학생 정보 삭제, 4.학생 정보 추가, 5.프로그램 종료 : ");
+			System.out.print("1.학생 정보 조회, 2.학생 정보 검색, 3.학생 정보 삭제, 4.학생 정보 추가, 5.프로그램 종료 : ");
 			int select = sc.nextInt();
 			
 			if(select == 1) {
